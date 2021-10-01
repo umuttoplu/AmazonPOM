@@ -30,7 +30,7 @@ class AmazonTest(unittest.TestCase):
 
     def test_amazon(self):
         self.login_page = self.amazon_main.sign_in_button_click()
-        self.login_page.sign_in("username", "password")
+        self.login_page.sign_in("umuttoplu00@hotmail.com", "testautomation2021")
         self.category_page = self.amazon_main.search_query("samsung")
         self.product_page = self.category_page.select_product('"samsung"')
         self.wishlist_page = self.product_page.product_add_list()

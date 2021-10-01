@@ -6,6 +6,8 @@ class LoginPage:
     """
     Website login page to user logged in.
     """
+    email = "umuttoplu00@hotmail.com"
+    password = "testautomation2021"
     EMAIL_TEXT = (By.ID, "ap_email")
     EMAIL_CONTINUE = (By.ID, "continue")
     PASSWORD_TEXT = (By.CLASS_NAME, "auth-required-field")

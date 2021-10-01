@@ -28,7 +28,7 @@ class BaseClass(object):
         """
         return self.wait().until(ec.element_to_be_clickable(element))
 
-    def wait_all_element(self, element):
+    def wait_all_elements(self, element):
         """
         Wait for element to present
         :param element: locator of the element to find

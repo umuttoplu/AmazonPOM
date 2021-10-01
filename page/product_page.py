@@ -30,6 +30,6 @@ class ProductPage:
         else:
             self.methods.wait_element_clickable(self.ADD_TO_LIST_UNAVAILABLE).click()
         self.methods.wait_element_clickable(self.VIEW_YOUR_LIST).click()
-        name = self.methods.wait_all_element(self.PRODUCT_CONTROL)[0].text
-        assert title == name, "Not the correct product added to wishlist"
+        assert self.methods.wait_element_visible(
+            self.PRODUCT_CONTROL).text == title, "Not the correct product added to wishlist"
         return WishlistPage(self.driver)

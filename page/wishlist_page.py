@@ -8,7 +8,7 @@ class WishlistPage:
 
     """
     DELETE_ITEM = (By.NAME, "submit.deleteItem")
-    DELETED = (By.XPATH, ".//*[contains(text(),'Deleted')]")
+    DELETED = (By.CLASS_NAME, "a-alert-inline-success")
 
     def __init__(self, driver):
         self.driver = driver
@@ -22,5 +22,5 @@ class WishlistPage:
         """
         Delete product to the wish list
         """
-        self.methods.wait_all_element(WishlistPage.DELETE_ITEM)[0].click()
+        self.methods.wait_element_clickable(WishlistPage.DELETE_ITEM).click()
         assert self.methods.selector_exists(WishlistPage.DELETED), "Did not delete the product."

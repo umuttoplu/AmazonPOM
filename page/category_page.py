@@ -9,10 +9,10 @@ class CategoryPage:
 
     """
     PAGE_CONTROL = (By.CSS_SELECTOR, ".a-color-state.a-text-bold")
+    SECOND_PAGE_CONTROL = (By.XPATH, "//img[@data-image-index='17']")
     GO_TO_SECOND_PAGE = (By.CLASS_NAME, "a-normal")
-    GO_TO_SECOND_PAGE_ALTERNATIVE = (By.CLASS_NAME, "s-pagination-button")
-    THIRD_PRODUCT = (By.CSS_SELECTOR, ".a-size-medium.a-color-base.a-text-normal")
-    PRODUCT_LIST = (By.CSS_SELECTOR, ".s-main-slot.s-result-list.s-search-results")
+    THIRD_PRODUCT = (By.XPATH, "//img[@data-image-index='19']")
+    PRODUCT_LIST = (By.CLASS_NAME, "s-main-slot")
 
     def __init__(self, driver):
         self.driver = driver
@@ -27,16 +27,9 @@ class CategoryPage:
         The second page goes through and selects the third product
 
         """
-
-        if self.methods.selector_exists(self.GO_TO_SECOND_PAGE):
-            self.methods.wait_all_element(self.GO_TO_SECOND_PAGE)[0].click()
-        else:
-            self.methods.wait_all_element(self.GO_TO_SECOND_PAGE_ALTERNATIVE)[0].click()
-
-        current_url = self.driver.current_url
-        second_page_control = "page=2"
-        assert second_page_control in current_url, "Not in the second page."
-        page_control = self.methods.wait_element_visible(self.PAGE_CONTROL).text
-        assert page_control == search, "Search results are not for 'samsung'"
-        self.methods.wait_all_element(self.THIRD_PRODUCT)[2].click()
+        self.methods.wait_element_clickable(self.GO_TO_SECOND_PAGE).click()
+        assert self.methods.wait_element_visible(self.SECOND_PAGE_CONTROL), "Not in the second page"
+        assert self.methods.wait_element_visible(self.PAGE_CONTROL).text == '"samsung"', \
+            "Not in the search page."
+        self.methods.wait_element_visible(self.THIRD_PRODUCT).click()
         return ProductPage(self.driver)
