@@ -10,8 +10,8 @@ class CategoryPage:
     """
     PAGE_CONTROL = (By.CSS_SELECTOR, ".a-color-state.a-text-bold")
     SECOND_PAGE_CONTROL = (By.XPATH, "//img[@data-image-index='17']")
-    GO_TO_SECOND_PAGE = (By.CLASS_NAME, "a-normal")
-    THIRD_PRODUCT = (By.XPATH, "//img[@data-image-index='19']")
+    GO_TO_SECOND_PAGE = (By.CSS_SELECTOR, "li[class='a-last']")
+    THIRD_PRODUCT = (By.CSS_SELECTOR, "img[data-image-index='19']")
     PRODUCT_LIST = (By.CLASS_NAME, "s-main-slot")
 
     def __init__(self, driver):
