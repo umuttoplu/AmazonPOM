@@ -4,7 +4,7 @@ from base.base_page import BaseClass
 
 class WishlistPage:
     """
-
+    Delete added product from wishlist
 
     """
     DELETE_ITEM = (By.NAME, "submit.deleteItem")
