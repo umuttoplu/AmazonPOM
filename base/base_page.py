@@ -39,16 +39,18 @@ class BaseClass(object):
     def wait_element_visible(self, element):
         """
         Wait for element to visible
+        :param element: locator of the element to find
 
         """
         return self.wait().until(ec.visibility_of_element_located(element))
 
-    def selector_exists(self, element):
+    def is_element_visible(self, element):
         """
-        Selector exists for assert
+        Returns True if element visible and False if element not visible
+        :param element: locator of the element to find
 
         """
         try:
-            return self.wait_element_clickable(element)
+            return self.wait_element_visible(element)
         except TimeoutException:
             return False

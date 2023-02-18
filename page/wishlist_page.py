@@ -8,7 +8,7 @@ class WishlistPage:
 
     """
     DELETE_ITEM = (By.NAME, "submit.deleteItem")
-    DELETED = (By.CLASS_NAME, "a-alert-inline-success")
+    DELETED_SUCCESSFULLY = (By.CLASS_NAME, "a-alert-inline-success")
 
     def __init__(self, driver):
         self.driver = driver
@@ -18,9 +18,16 @@ class WishlistPage:
     def check(self):
         (self.methods.wait_element_visible(self.DELETE_ITEM), 'No "Delete" button on the page!')
 
-    def delete_product(self):
+    def delete_product_from_wishlist(self):
         """
-        Delete product to the wish list
+        Delete product from wish list
+
         """
-        self.methods.wait_element_clickable(WishlistPage.DELETE_ITEM).click()
-        assert self.methods.selector_exists(WishlistPage.DELETED), "Did not delete the product."
+        self.methods.wait_element_clickable(self.DELETE_ITEM).click()
+
+    def is_product_deleted(self):
+        """
+        Returns True if product deleted, False if not
+
+        """
+        return self.methods.is_element_visible(self.DELETED_SUCCESSFULLY)

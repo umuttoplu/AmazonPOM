@@ -30,6 +30,8 @@ class HomePage:
     def search_query(self, search):
         """
         Navigates to the category search
+        :param str search: requested
+
         """
         self.methods.wait_element_clickable(self.SEARCH_BAR).send_keys(search)
         self.methods.wait_element_clickable(self.SEARCH_ICON).click()

@@ -8,10 +8,10 @@ class CategoryPage:
     Amazon selects products from the category page
 
     """
-    PAGE_CONTROL = (By.CSS_SELECTOR, ".a-color-state.a-text-bold")
-    SECOND_PAGE_CONTROL = (By.XPATH, "//img[@data-image-index='17']")
-    GO_TO_SECOND_PAGE = (By.CSS_SELECTOR, "li[class='a-last']")
-    THIRD_PRODUCT = (By.CSS_SELECTOR, "img[data-image-index='19']")
+    SEARCHED_KEYWORD = (By.CSS_SELECTOR, ".a-color-state.a-text-bold")
+    CURRENT_PAGE_NUMBER = (By.CSS_SELECTOR, ".s-pagination-selected")
+    NEXT_PAGE = (By.CSS_SELECTOR, ".s-pagination-next")
+    PRODUCT = (By.CSS_SELECTOR, ".a-size-medium.a-color-base.a-text-normal")
     PRODUCT_LIST = (By.CLASS_NAME, "s-main-slot")
 
     def __init__(self, driver):
@@ -22,14 +22,33 @@ class CategoryPage:
     def check(self):
         (self.methods.wait_element_visible(self.PRODUCT_LIST), 'Could not found any product!')
 
-    def select_product(self, search):
+    def select_product(self, index):
         """"
-        The second page goes through and selects the third product
+        Selects product from category page
+        :param int index: index of requested product
 
         """
-        self.methods.wait_element_clickable(self.GO_TO_SECOND_PAGE).click()
-        assert self.methods.wait_element_visible(self.SECOND_PAGE_CONTROL), "Not in the second page"
-        assert self.methods.wait_element_visible(self.PAGE_CONTROL).text == '"samsung"', \
-            "Not in the search page."
-        self.methods.wait_element_visible(self.THIRD_PRODUCT).click()
+        products = self.methods.wait_all_elements(self.PRODUCT)
+        products[index].click()
         return ProductPage(self.driver)
+
+    def click_next_page_button(self):
+        """"
+        Click Next button from pagination
+
+        """
+        self.methods.wait_element_clickable(self.NEXT_PAGE).click()
+
+    def get_current_page_number(self):
+        """"
+        Returns current page number
+
+        """
+        return self.methods.wait_element_visible(self.CURRENT_PAGE_NUMBER).text
+
+    def get_searched_keyword(self):
+        """"
+        Returns searched text after search applied
+
+        """
+        return self.methods.wait_element_visible(self.SEARCHED_KEYWORD).text.replace('"', "")
